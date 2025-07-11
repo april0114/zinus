@@ -1,0 +1,534 @@
+<!-- ✅ Swiper 스타일 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<style>
+  /* --- 공통 --- */
+  .content-wrapper {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* 아코디언 왼쪽 (PC) */
+  .accordion-side {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .accordion-container {
+    font-family: inherit;
+    margin-top: 25%;
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .accordion-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .title-left {
+    display: flex;
+    gap: 8px;
+    font-size: 16px;
+  }
+
+  .accordion-title .number {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: transparent;
+    transition: 0.3s;
+    font-weight: bold;
+  }
+
+  .accordion-item[open] .accordion-title .number {
+    background-color: #c5a47e;
+    color: white;
+  }
+
+  .toggle-icon::before {
+    content: "+";
+    font-size: 20px;
+    color: #999;
+  }
+
+  .accordion-item[open] .toggle-icon::before {
+    content: "−";
+  }
+
+  .accordion-content {
+    padding: 20px;
+  }
+
+  .accordion-columns {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .accordion-column {
+    flex: 1 1 0;
+    min-width: 200px;
+  }
+
+  /* 이미지 오른쪽 */
+  .image-side {
+    flex: 1;
+    max-width: 50%;
+    position: relative;
+  }
+
+  .image-hotspot-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .image-hotspot-container img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* 모바일 전용 카드 슬라이더 */
+  .mobile-wrapper {
+    display: none;
+    padding: 16px;
+  }
+
+  .swiper-slide .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+
+  .swiper-pagination {
+    width: 80%;
+    margin: 15px auto 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .swiper-pagination-bullet {
+    border-top: 10px;
+    width: 80px !important;
+    height: 4px !important;
+    background-color: #d3d3d3 !important;
+
+    border-radius: 999px !important;
+    margin: 0 6px !important;
+    opacity: 1 !important;
+    /* Swiper 기본 opacity 제거 */
+    transition: background-color 0.3s ease !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #C5A47E !important;
+  }
+
+
+  /* 모바일 전용 반응형 전환 */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .accordion-side {
+      display: none;
+    }
+
+    .image-side {
+      order: 1;
+      max-width: 100%;
+    }
+
+    .mobile-wrapper {
+      display: block;
+      order: 2;
+    }
+  }
+
+  .hotspot {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: white;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .hotspot.active {
+    background-color: #C5A47E !important;
+    color: white !important;
+  }
+
+  .custom-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 40px;
+    font-family: sans-serif;
+    max-width: 750px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .circle-number {
+    width: 28px;
+    height: 28px;
+    background-color: #c5a47e;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .card-section {
+    margin-bottom: 12px;
+  }
+
+  .card-section h6 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin: 0 0 4px;
+  }
+
+  .card-section p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+    margin: 0;
+  }
+</style>
+
+<!-- ✅ HTML 구조 -->
+
+<div class="content-wrapper">
+  <!-- ✅ PC용 아코디언 -->
+  <div class="accordion-side">
+    <div class="accordion-container">
+      <details class="accordion-item" id="accordion-1">
+        <summary class="accordion-title"><span class="title-left"><span class="number">1</span> <span
+              class="text">Cooling Top Cover</span></span><span class="toggle-icon"></span></summary>
+        <div class="accordion-content">
+          <div class="accordion-columns">
+            <div class="accordion-column">
+              <h6>What is it</h6>
+              <p>Soft fabric cover with cooling fibers and an antimicrobial treatment</p>
+            </div>
+            <div class="accordion-column">
+              <h6>How it helps</h6>
+              <p>Breathable, cool-to-the-touch fabric ensures a refreshing sleep experience, while antimicrobial
+                properties help maintain a healthy sleeping surface.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+      <details class="accordion-item" id="accordion-2">
+        <summary class="accordion-title"><span class="title-left"><span class="number">2</span> <span
+              class="text">Pressure-Relief Layer</span></span><span class="toggle-icon"></span></summary>
+        <div class="accordion-content">
+          <div class="accordion-columns">
+            <div class="accordion-column">
+              <h6>What is it</h6>
+              <p>1 inch of pressure-relieving memory foam</p>
+            </div>
+            <div class="accordion-column">
+              <h6>How it helps</h6>
+              <p>Enjoy restorative sleep with contouring memory foam that provides unmatched comfort, cushioning your
+                back and hips for a more restful night.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion-item" id="accordion-3">
+        <summary class="accordion-title"><span class="title-left"><span class="number">3</span> <span
+              class="text">Responsive Support Layer</span></span><span class="toggle-icon"></span></summary>
+        <div class="accordion-content">
+          <div class="accordion-columns">
+            <div class="accordion-column">
+              <h6>What is it</h6>
+              <p>3 inches of responsive support foam</p>
+            </div>
+            <div class="accordion-column">
+              <h6>How it helps</h6>
+              <p>Promotes spinal alignment with dynamic support, ensuring you stay properly positioned on top of the
+                mattress for uninterrupted sleep.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+      <details class="accordion-item" id="accordion-4">
+        <summary class="accordion-title"><span class="title-left"><span class="number">4</span> <span
+              class="text">Motion Isolation Layer</span></span><span class="toggle-icon"></span></summary>
+        <div class="accordion-content">
+          <div class="accordion-columns">
+            <div class="accordion-column">
+              <h6>What is it</h6>
+              <p>8 inches of foundational foam</p>
+            </div>
+            <div class="accordion-column">
+              <h6>How it helps</h6>
+              <p>Enhances overall stability and reduces motion transfer, offering a solid foundation with robust edge
+                support for consistent sleep quality.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+      <details class="accordion-item" id="accordion-5">
+        <summary class="accordion-title"><span class="title-left"><span class="number">5</span> <span
+              class="text">Durable Bottom Cover</span></span><span class="toggle-icon"></span></summary>
+        <div class="accordion-content">
+          <div class="accordion-columns">
+            <div class="accordion-column">
+              <h6>What it does</h6>
+              <p>Heavy-duty, shift-resistant fabric cover</p>
+            </div>
+            <div class="accordion-column">
+              <h6>How it helps</h6>
+              <p>This soft, protective cover secures the mattress’ core, preventing layers from shifting and enhancing
+                the overall longevity of the mattress.</p>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ✅ 이미지 / 핫스팟 (PC & 모바일 공용) -->
+  <div class="image-side">
+    <div class="image-hotspot-container">
+      <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/layer.png" class="responsive-img" />
+      <div class="hotspot" data-layer="1" style="top:27%;left:20%;">1</div>
+      <div class="hotspot" data-layer="2" style="top:41%;left:57%;">2</div>
+      <div class="hotspot" data-layer="3" style="top:50%;left:57%;">3</div>
+      <div class="hotspot" data-layer="4" style="top:56%;left:20%;">4</div>
+      <div class="hotspot" data-layer="5" style="top:80%;left:57%;">5</div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ 모바일용 슬라이더 -->
+<div class="mobile-wrapper">
+  <div class="swiper mobile-accordion">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" data-layer="1">
+        <div class="custom-card">
+          <div class="card-header">
+            <span class="circle-number">1</span>
+            <span class="card-title">Cooling Top Cover</span>
+          </div>
+          <div class="card-section">
+            <h6>What is it</h6>
+            <p>Soft fabric cover with cooling fibers and an antimicrobial treatment</p>
+          </div>
+          <div class="card-section">
+            <h6>How it helps</h6>
+            <p>Breathable, cool-to-the-touch fabric ensures a refreshing sleep experience, while antimicrobial
+              properties help maintain a healthy sleeping surface.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide" data-layer="2">
+        <div class="custom-card">
+          <div class="card-header">
+            <span class="circle-number">2</span>
+            <span class="card-title">Cooling Top Cover</span>
+          </div>
+          <div class="card-section">
+            <h6>What is it</h6>
+            <p>Soft fabric cover with cooling fibers and an antimicrobial treatment</p>
+          </div>
+          <div class="card-section">
+            <h6>How it helps</h6>
+            <p>Breathable, cool-to-the-touch fabric ensures a refreshing sleep experience, while antimicrobial
+              properties help maintain a healthy sleeping surface.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide" data-layer="3">
+        <div class="custom-card">
+          <div class="card-header">
+            <span class="circle-number">3</span>
+            <span class="card-title">Cooling Top Cover</span>
+          </div>
+          <div class="card-section">
+            <h6>What is it</h6>
+            <p>Soft fabric cover with cooling fibers and an antimicrobial treatment</p>
+          </div>
+          <div class="card-section">
+            <h6>How it helps</h6>
+            <p>Breathable, cool-to-the-touch fabric ensures a refreshing sleep experience, while antimicrobial
+              properties help maintain a healthy sleeping surface.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide" data-layer="4">
+        <div class="custom-card">
+          <div class="card-header">
+            <span class="circle-number">4</span>
+            <span class="card-title">Cooling Top Cover</span>
+          </div>
+          <div class="card-section">
+            <h6>What is it</h6>
+            <p>Soft fabric cover with cooling fibers and an antimicrobial treatment</p>
+          </div>
+          <div class="card-section">
+            <h6>How it helps</h6>
+            <p>Breathable, cool-to-the-touch fabric ensures a refreshing sleep experience, while antimicrobial
+              properties help maintain a healthy sleeping surface.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-slide" data-layer="5">
+        <div class="custom-card">
+          <div class="card-header">
+            <span class="circle-number">5</span>
+            <span class="card-title">Cooling Top Cover</span>
+          </div>
+          <div class="card-section">
+            <h6>What is it</h6>
+            <p>Soft fabric cover with cooling fibers and an antimicrobial treatment</p>
+          </div>
+          <div class="card-section">
+            <h6>How it helps</h6>
+            <p>Breathable, cool-to-the-touch fabric ensures a refreshing sleep experience, while antimicrobial
+              properties help maintain a healthy sleeping surface.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+  <!-- ✅ Swiper 스타일 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const accordions = document.querySelectorAll(".accordion-item");
+      const hotspots = document.querySelectorAll(".hotspot");
+      let currentOpenLayer = null;
+
+      // ✅ 아코디언 열기
+      function openAccordion(layer) {
+        const target = document.getElementById(`accordion-${layer}`);
+        if (!target || target.open) return;
+        accordions.forEach(acc => acc.removeAttribute("open"));
+        target.setAttribute("open", true);
+        currentOpenLayer = layer;
+      }
+
+      // ✅ 핫스팟 활성화
+      function activateHotspot(layer) {
+        hotspots.forEach(h => h.classList.remove("active"));
+        const hotspot = document.querySelector(`.hotspot[data-layer="${layer}"]`);
+        if (hotspot) hotspot.classList.add("active");
+        currentOpenLayer = layer;
+      }
+
+      // ✅ Swiper 초기화
+      const swiper = new Swiper(".mobile-accordion", {
+        slidesPerView: 1.1,
+        spaceBetween: 16,
+        centeredSlides: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+          renderBullet: function (index, className) {
+            return `<span class="${className}"></span>`;
+          }
+        },
+        on: {
+          slideChange: function () {
+            const layer = swiper.slides[swiper.activeIndex].getAttribute("data-layer");
+            activateHotspot(layer); // 너가 이미 정의한 함수
+          }
+        }
+      });
+
+
+      // ✅ hotspot 이벤트 (hover + click)
+      hotspots.forEach(h => {
+        const layer = h.getAttribute("data-layer");
+
+        // PC: hover 시 아코디언 열기
+        h.addEventListener("mouseenter", () => {
+          if (window.innerWidth > 768) {
+            openAccordion(layer);
+            activateHotspot(layer);
+          }
+        });
+
+        // click: PC는 아코디언 열기, Mobile은 슬라이더 이동
+        h.addEventListener("click", () => {
+          if (window.innerWidth > 768) {
+            openAccordion(layer);
+            activateHotspot(layer);
+          } else {
+            const targetIndex = [...swiper.slides].findIndex(slide => slide.getAttribute("data-layer") === layer);
+            if (targetIndex !== -1) {
+              swiper.slideTo(targetIndex);
+              activateHotspot(layer); // 보강용
+            }
+          }
+        });
+      });
+
+      // ✅ 아코디언 toggle 시 hotspot 활성화
+      accordions.forEach(item => {
+        item.addEventListener("toggle", () => {
+          const layer = item.id.replace("accordion-", "");
+          if (item.open) {
+            accordions.forEach(other => {
+              if (other !== item) other.removeAttribute("open");
+            });
+            activateHotspot(layer);
+            currentOpenLayer = layer;
+          } else {
+            if (currentOpenLayer === layer) {
+              hotspots.forEach(h => h.classList.remove("active"));
+              currentOpenLayer = null;
+            }
+          }
+        });
+      });
+    });
+  </script>
