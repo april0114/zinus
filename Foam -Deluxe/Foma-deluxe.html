@@ -1,0 +1,487 @@
+<!-- ✅ Swiper 스타일 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<style>
+    .section-divider {
+        border: none;
+        height: 1px;
+        background-color: #ccc;
+        margin: 16px 0;
+        width: 100%;
+    }
+
+    .content-wrapper {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .accordion-side {
+        flex: 1;
+        max-width: 50%;
+    }
+
+    .accordion-container {
+        font-family: inherit;
+        margin-top: 3%;
+    }
+
+    .accordion-item {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .accordion-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .title-left {
+        display: flex;
+        gap: 8px;
+        font-size: 16px;
+    }
+
+    .accordion-title .number {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 50%;
+        text-align: center;
+        background-color: transparent;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    .accordion-item[open] .accordion-title .number {
+        background-color: #c5a47e;
+        color: white;
+    }
+
+    .toggle-icon::before {
+        content: "+";
+        font-size: 20px;
+        color: #999;
+    }
+
+    .accordion-item[open] .toggle-icon::before {
+        content: "−";
+    }
+
+
+    .accordion-columns {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+    }
+
+    .accordion-column {
+        flex: 1 1 0;
+        min-width: 200px;
+    }
+
+    /* 이미지 오른쪽 */
+    .image-side {
+        flex: 1;
+        max-width: 50%;
+        position: relative;
+    }
+
+    .image-hotspot-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .image-hotspot-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 모바일 전용 카드 슬라이더 */
+    .mobile-wrapper {
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        display: none;
+    }
+
+    .swiper.mobile-accordion {
+        width: 100%;
+        max-width: 90%;
+        box-sizing: border-box;
+    }
+
+    .swiper-slide .card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+
+
+    .swiper-pagination-3 {
+        width: 80%;
+        margin: 10 auto 0 auto !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+    }
+
+    .swiper-pagination-4 {
+        width: 80%;
+        margin: 0 auto 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+    }
+
+    .swiper-pagination-bullet {
+        width: 60% !important;
+        height: 4px !important;
+        border-radius: 4px !important;
+        background-color: #d3d3d3 !important;
+        margin: 0 2px !important;
+        transition: all 0.3s ease !important;
+        opacity: 1 !important;
+        box-shadow: none !important;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #c5a47e !important;
+        box-shadow: 0 0 0 2px #c5a47e !important;
+        height: 2px !important;
+    }
+
+
+
+
+    /* 모바일 전용 반응형 전환 */
+    @media (max-width: 768px) {
+        .content-wrapper {
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .accordion-side {
+            display: none;
+        }
+
+        .image-side {
+            order: 1;
+            max-width: 100%;
+        }
+
+        .mobile-wrapper {
+            display: block;
+            order: 2;
+        }
+    }
+
+    .hotspot {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background-color: white;
+        text-align: center;
+        line-height: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .hotspot.active {
+        background-color: #C5A47E !important;
+        color: white !important;
+    }
+
+    .custom-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 60px;
+        font-family: sans-serif;
+        max-width: 100%;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+
+    .circle-number {
+        width: 28px;
+        height: 28px;
+        background-color: #c5a47e;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 28px;
+        font-weight: bold;
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .card-title {
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .card-section {
+        margin-bottom: 12px;
+    }
+
+    .card-section h6 {
+        font-size: 13px;
+        font-weight: 600;
+        color: #444;
+        margin: 0 0 4px;
+    }
+
+    .card-section p {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #555;
+        margin: 0;
+    }
+
+    .green-tea {
+        margin-top: 50px;
+    }
+</style>
+
+<!-- ✅ HTML 구조 -->
+
+<div class="content-wrapper">
+    <!-- ✅ PC용 아코디언 -->
+    <div class="accordion-side">
+        <div class="title">
+            <h3>DELUXE 13"</h3>
+        </div>
+        <div class="sub-title">
+            <h6>Dual Action Cooling</h6>
+        </div>
+        <div class="section-divider"></div>
+        <div class="accordion-container">
+            <details class="accordion-item" id="accordion-1">
+                <summary class="accordion-title"><span class="title-left"><span class="number">1</span> <span
+                            class="text">Quilted, breathable & cool-touch cover Cooling Power 2X</span></span><span
+                        class="toggle-icon"></span>
+                </summary>
+                <div class="accordion-content">
+                    <div class="accordion-columns">
+                        <div class="accordion-column">
+                            <h6> Cool-to-the-Touch Polyethylene (PE) Cover</h6>
+                            <p>Naturally cooling, breathable, and moisture-wicking-PE fabric creates an instantly
+                                refreshing sleep
+                                surface. Staying cool helps you fall asleep faster,
+                                stay asleep longer, and wake up more refreshed by preventing overheating and
+                                restlessness.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </details>
+            <details class="accordion-item" id="accordion-2">
+                <summary class="accordion-title"><span class="title-left"><span class="number">2</span> <span
+                            class="text">2"
+                            Restorative Gel infused memory foam for pressure relief</span></span><span
+                        class="toggle-icon"></span>
+                </summary>
+                <div class="accordion-content">
+                    <div class="accordion-columns">
+                        <div class="accordion-column">
+                            <h6> Restorative Gel-Infused Memory Foam</h6>
+                            <p> Provides contouring comfort, cooling, and targeted pressure relief to ease tension on
+                                shoulders, hips, and lower back. Promotes better circulation,
+                                reduces tossing and turning, and allows for full-body relaxation4essential for deep,
+                                restorative sleep.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="accordion-item" id="accordion-3">
+                <summary class="accordion-title"><span class="title-left"><span class="number">3</span> <span
+                            class="text">3"
+                            <b>Airflow Comfort Foam layer</b> to minimize motion tranfer</span></span><span
+                        class="toggle-icon"></span>
+                </summary>
+                <div class="accordion-content">
+                    <div class="accordion-columns">
+                        <div class="accordion-column">
+                            <h6>High-Airflow Foam Layer</h6>
+                            <p> Encourages continuous air circulation by allowing heat to escape and fresh air to flow.
+                                This keeps the mattress cool, dry, and hygienic4supporting a
+                                healthier and more comfortable sleep environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+            <details class="accordion-item" id="accordion-4">
+                <summary class="accordion-title"><span class="title-left"><span class="number">4</span> <span
+                            class="text">8"
+                            Active Support base layer for ultimate stabillity</span></span><span
+                        class="toggle-icon"></span></summary>
+                <div class="accordion-content">
+                    <div class="accordion-columns">
+                        <div class="accordion-column">
+                            <h6> Active Support Base Layer</h6>
+                            <p>A premium, stabilizing base delivers durable, even support that maintains mattress shape,
+                                extends
+                                longevity, promotes proper spinal alignment, and
+                                reduces motion transfer-enhancing the performance of every comfort layer above it.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </details>
+            <details class="accordion-item" id="accordion-5">
+                <summary class="accordion-title"><span class="title-left"><span class="number"> <img
+                                src="https://dreamvibesleep.com/wp-content/uploads/2025/07/Star-2.png" alt="Star Icon"
+                                style="width: 20px; height: auto; margin-top: 2px;" /></span> <span
+                            class="text">Foam</span></span><span class="toggle-icon"></span></summary>
+                <div class="accordion-content">
+                    <div class="accordion-columns">
+                        <div class="accordion-column">
+                            <h6>Green Tea-Infused Foam</h6>
+                            <p> Naturally fresh and odor-free-green tea infusion neutralizes odors, absorbs moisture,
+                                and keeps your
+                                mattress feeling clean and inviting without the
+                                use of harsh chemicals.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- ✅ 이미지 / 핫스팟 (PC & 모바일 공용) -->
+    <div class="image-side">
+        <div class="image-hotspot-container">
+            <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/DreamVibe-Essential.png"
+                class="responsive-img" />
+            <div class="hotspot" data-layer="1" style="top:24%;left:53%;">1</div>
+            <div class="hotspot" data-layer="2" style="top:40%;left:53%;">2</div>
+            <div class="hotspot" data-layer="3" style="top:49%;left:53%;">3</div>
+            <div class="hotspot" data-layer="4" style="top:62%;left:53%;">4</div>
+            <div class="hotspot" data-layer="5" style="top:56%; left:21%;">
+                <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/Star-2.png" alt="Star Icon"
+                    style="width: 20px; height: auto; margin-top: 2px;" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ✅ 모바일용 슬라이더 -->
+<div class="mobile-wrapper">
+    <div id="price-table-3-0223">
+        <div class="swiper mobile-accordion">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" data-layer="1">
+                    <div class="custom-card">
+                        <div class="card-header">
+                            <span class="circle-number">1</span>
+                            <span class="card-title">Quilted, breathable & <br>cool-touch cover Cooling Power 2X</span>
+                        </div>
+                        <div class="card-section">
+                            <h6>Cool-to-the-Touch Polyethylene (PE) Cover</h6>
+                            <p style="margin-bottom: 10px;">Naturally cooling, breathable, and moisture-wicking4PE
+                                fabric creates an instantly refreshing sleep surface. Staying cool helps you fall asleep
+                                faster,
+                                stay asleep longer, and wake up more refreshed by preventing overheating and
+                                restlessness.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide" data-layer="2">
+                    <div class="custom-card">
+                        <div class="card-header">
+                            <span class="circle-number">2</span>
+                            <span class="card-title">Restorative Gel infused<br> memory foam for pressure relief</span>
+                        </div>
+                        <div class="card-section">
+                            <h6>Restorative Gel-Infused Memory Foam</h6>
+                            <p>Provides contouring comfort, cooling, and targeted pressure relief to ease tension on
+                                shoulders, hips,
+                                and lower back. Promotes better circulation,
+                                reduces tossing and turning, and allows for full-body relaxation-essential for deep,
+                                restorative sleep.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide" data-layer="3">
+                    <div class="custom-card">
+                        <div class="card-header">
+                            <span class="circle-number">3</span>
+                            <span class="card-title">Airflow Comfort Foam layer to<br> minimize motion tranfer</span>
+                        </div>
+                        <div class="card-section">
+                            <h6>High-Airflow Foam Layer</h6>
+                            <p>Encourages continuous air circulation by allowing heat to escape and fresh air to flow.
+                                This keeps the
+                                mattress cool, dry, and hygienic-supporting a
+                                healthier and more comfortable sleep environment.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide" data-layer="4">
+                    <div class="custom-card">
+                        <div class="card-header">
+                            <span class="circle-number">4</span>
+                            <span class="card-title">8" Active Support base layer <br>for ultimate stabillity</span>
+                        </div>
+                        <div class="card-section">
+                            <h6> Active Support Base Layer</h6>
+                            <p> A premium, stabilizing base delivers durable, even support that maintains mattress
+                                shape, extends longevity, promotes proper spinal alignment, and
+                                reduces motion transfer4enhancing the performance of every comfort layer above it.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide" data-layer="5">
+                    <div class="custom-card">
+                        <div class="card-header">
+                            <span class="circle-number"> <img
+                                    src="https://dreamvibesleep.com/wp-content/uploads/2025/07/Star-2.png"
+                                    alt="Star Icon" style="width: 20px; height: auto; margin-top: 2px;" /></span>
+                            <span class="card-title">Green Tea-Infused Foam</span>
+                        </div>
+                        <div class="card-section">
+                            <h6>* Green Tea-Infused Foam</h6>
+                            <p>Naturally fresh and odor-free4green tea infusion neutralizes odors, absorbs moisture, and
+                                keeps your mattress feeling clean and inviting without the
+                                use of harsh chemicals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination-3"></div>
+    </div>
+    <!-- ✅ Swiper 스타일 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
