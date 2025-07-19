@@ -154,7 +154,7 @@
     <script>
         (function () {
             emailjs.init({
-                publicKey: "tyaD8TOhfeYBxBzVy",
+                publicKey: "",
             });
         })();
         const form = document.getElementById("contact-form");
@@ -228,7 +228,7 @@
                 time: time
             };
 
-            emailjs.send("service_ffmpfmp", "template_gfvv5zu", formData)
+            emailjs.send("", "", formData)
                 .then(() => {
                     alert("Message sent successfully!");
                     form.reset();
