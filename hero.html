@@ -1,19 +1,12 @@
 <!-- ✅ Swiper 스타일 CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <style>
-    .section-divider {
-        border: none;
-        height: 1px;
-        background-color: #ccc;
-        margin: 16px 0;
-        width: 100%;
-    }
-
     .content-wrapper {
         display: flex;
-        gap: 40px;
+        gap: 20px;
         align-items: flex-start;
         justify-content: center;
+        padding: 40px 10px;
         max-width: 1200px;
         margin: 0 auto;
     }
@@ -25,7 +18,7 @@
 
     .accordion-container {
         font-family: inherit;
-        margin-top: 3%;
+        margin-top: 10%;
     }
 
     .accordion-item {
@@ -36,7 +29,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 30px 0;
+        padding: 20px 20px;
         cursor: pointer;
         font-weight: bold;
     }
@@ -47,37 +40,38 @@
         font-size: 16px;
     }
 
-    .accordion-title .number {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
-        border-radius: 50%;
-        text-align: center;
-        background-color: transparent;
-        transition: 0.3s;
-        font-weight: bold;
-    }
+.accordion-title .number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: 0.3s;
+    font-weight: bold;
+    flex-shrink: 0; 
+    margin-top: 4px; 
+}
 
-    .accordion-item[open] .accordion-title .number {
-        background-color: #c5a47e;
-        color: white;
-    }
+.accordion-item[open] .accordion-title .number {
+    background-color: #c5a47e;
+    color: white;
+}
 
-    .accordion-item[open] .accordion-title .number[data-layer="5"] {
-        background-color: #2E7D32;
-        color: white !important;
+.accordion-item[open] .accordion-title .number[data-layer="5"] {
+    background-color: #2E7D32;
+    color: white !important;
 
-        background-image: url('https://dreamvibesleep.com/wp-content/uploads/2025/07/leaf.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 16px 16px;
+    background-image: url('https://dreamvibesleep.com/wp-content/uploads/2025/07/leaf.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
 
-        border: 2px solid #2E7D32;
-        box-shadow: 0 0 10px rgba(46, 125, 50, 0.6);
-        transform: scale(1.2);
-    }
-
+    border: 2px solid #2E7D32;
+    box-shadow: 0 0 10px rgba(46, 125, 50, 0.6);
+    transform: scale(1.2);
+}
 
     .toggle-icon::before {
         content: "+";
@@ -89,6 +83,9 @@
         content: "−";
     }
 
+    .accordion-content {
+        padding: 20px;
+    }
 
     .accordion-columns {
         display: flex;
@@ -96,10 +93,6 @@
         flex-wrap: wrap;
     }
 
-    .accordion-column {
-        flex: 1 1 0;
-        min-width: 200px;
-    }
 
     /* 이미지 오른쪽 */
     .image-side {
@@ -144,7 +137,7 @@
 
     .swiper-pagination-3 {
         width: 80%;
-        margin: 10 auto 0 auto !important;
+        margin: 0 auto 0 auto;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -163,7 +156,7 @@
     }
 
     .swiper-pagination-bullet {
-        width: 60% !important;
+        width: 60px !important;
         height: 4px !important;
         border-radius: 4px !important;
         background-color: #d3d3d3 !important;
@@ -216,14 +209,17 @@
         cursor: pointer;
         transition: background-color 0.3s;
     }
-
-    .hotspot[data-layer="5"] {
-        border-color: #2E7D32 !important;
+    .signature {
+        position : absolute
     }
 
     .hotspot.active {
         background-color: #C5A47E !important;
         color: white !important;
+    }
+
+    .hotspot[data-layer="5"] {
+        border-color: #2E7D32 !important;
     }
 
     .hotspot.active[data-layer="5"] {
@@ -244,13 +240,12 @@
 
     }
 
-
     .custom-card {
         background: white;
         border-radius: 12px;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        margin-bottom: 60px;
+        margin-bottom: 40px;
         font-family: sans-serif;
         max-width: 100%;
     }
@@ -272,20 +267,6 @@
         font-weight: bold;
         font-size: 14px;
         margin-right: 10px;
-        transition: all 0.3s ease;
-    }
-
-    /* ✅ 강조된 5번 전용 스타일 */
-    .circle-number[data-layer="5"] {
-        background-color: #2E7D32;
-        color: transparent;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 16px 16px;
-
-        border: 2px solid #2E7D32;
-        box-shadow: 0 0 10px rgba(46, 125, 50, 0.6);
-        transform: scale(1.2);
     }
 
     .card-title {
@@ -315,53 +296,42 @@
         margin-top: 50px;
     }
 </style>
+
 <!-- ✅ HTML 구조 -->
 
 <div class="content-wrapper">
     <!-- ✅ PC용 아코디언 -->
     <div class="accordion-side">
-        <div class="title">
-            <h3>DELUXE 13"</h3>
-        </div>
-        <div class="sub-title">
-            <h6>Dual Action Cooling</h6>
-        </div>
-        <div class="section-divider"></div>
         <div class="accordion-container">
             <details class="accordion-item" id="accordion-1">
                 <summary class="accordion-title"><span class="title-left"><span class="number">1</span> <span
                             class="text">Quilted, breathable & cool-touch cover Cooling Power 2X</span></span><span
-                        class="toggle-icon"></span>
-                </summary>
+                        class="toggle-icon"></span></summary>
                 <div class="accordion-content">
                     <div class="accordion-columns">
                         <div class="accordion-column">
-                            <h6> Cool-to-the-Touch Polyethylene (PE) Cover</h6>
+                            <h6>Cool-to-the-Touch Polyethylene (PE) Cover</h6>
                             <p>Naturally cooling, breathable, and moisture-wicking-PE fabric creates an instantly
                                 refreshing sleep
                                 surface. Staying cool helps you fall asleep faster,
                                 stay asleep longer, and wake up more refreshed by preventing overheating and
                                 restlessness.</p>
                         </div>
-
                     </div>
                 </div>
             </details>
             <details class="accordion-item" id="accordion-2">
                 <summary class="accordion-title"><span class="title-left"><span class="number">2</span> <span
-                            class="text">2"
-                            Restorative Gel infused memory foam for pressure relief</span></span><span
-                        class="toggle-icon"></span>
-                </summary>
+                            class="text">Restorative Gel infused memory foam for pressure relief</span></span><span
+                        class="toggle-icon"></span></summary>
                 <div class="accordion-content">
                     <div class="accordion-columns">
                         <div class="accordion-column">
-                            <h6> Restorative Gel-Infused Memory Foam</h6>
-                            <p> Provides contouring comfort, cooling, and targeted pressure relief to ease tension on
+                            <h6>Restorative Gel-Infused Memory Foam</h6>
+                            <p>Provides contouring comfort, cooling, and targeted pressure relief to ease tension on
                                 shoulders, hips, and lower back. Promotes better circulation,
                                 reduces tossing and turning, and allows for full-body relaxation4essential for deep,
-                                restorative sleep.
-                            </p>
+                                restorative sleep.</p>
                         </div>
                     </div>
                 </div>
@@ -369,15 +339,13 @@
 
             <details class="accordion-item" id="accordion-3">
                 <summary class="accordion-title"><span class="title-left"><span class="number">3</span> <span
-                            class="text">3"
-                            Airflow Comfort Foam layer to minimize motion tranfer</span></span><span
-                        class="toggle-icon"></span>
+                            class="text">3" Airflow Comfort Foam layer to minimize motion tranfer</span></span><span class="toggle-icon"></span>
                 </summary>
                 <div class="accordion-content">
                     <div class="accordion-columns">
                         <div class="accordion-column">
                             <h6>High-Airflow Foam Layer</h6>
-                            <p> Encourages continuous air circulation by allowing heat to escape and fresh air to flow.
+                            <p>Encourages continuous air circulation by allowing heat to escape and fresh air to flow.
                                 This keeps the mattress cool, dry, and hygienic-supporting a
                                 healthier and more comfortable sleep environment.</p>
                         </div>
@@ -387,7 +355,7 @@
             <details class="accordion-item" id="accordion-4">
                 <summary class="accordion-title"><span class="title-left"><span class="number">4</span> <span
                             class="text">8"
-                            Active Support base layer for ultimate stabillity</span></span><span
+                            Active Support base layer for ultimate stabillityr</span></span><span
                         class="toggle-icon"></span></summary>
                 <div class="accordion-content">
                     <div class="accordion-columns">
@@ -398,7 +366,6 @@
                                 longevity, promotes proper spinal alignment, and
                                 reduces motion transfer-enhancing the performance of every comfort layer above it.</p>
                         </div>
-
                     </div>
                 </div>
             </details>
@@ -406,17 +373,17 @@
                 <summary class="accordion-title"><span class="title-left"><span class="number" data-layer="5"> <img
                                 src="https://dreamvibesleep.com/wp-content/uploads/2025/07/leaf-black-1.png"
                                 alt="Leaf Icon" style="width: 20px; height: auto; vertical-align: middle;" /></span>
-                        <span class="text">Green Tea-Infused Foam</span></span><span class="toggle-icon"></span></summary>
+                        <span class="text">Green Tea-Infused Foam</span></span><span class="toggle-icon"></span>
+                </summary>
                 <div class="accordion-content">
                     <div class="accordion-columns">
                         <div class="accordion-column">
                             <h6>* Green Tea-Infused Foam</h6>
-                            <p> Naturally fresh and odor-free-green tea infusion neutralizes odors, absorbs moisture,
+                            <p>Naturally fresh and odor-free-green tea infusion neutralizes odors, absorbs moisture,
                                 and keeps your
                                 mattress feeling clean and inviting without the
                                 use of harsh chemicals.</p>
                         </div>
-
                     </div>
                 </div>
             </details>
@@ -426,17 +393,16 @@
     <!-- ✅ 이미지 / 핫스팟 (PC & 모바일 공용) -->
     <div class="image-side">
         <div class="image-hotspot-container">
-            <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/DreamVibe-Essential.png"
-                class="responsive-img" />
-            <div class="hotspot" data-layer="1" style="top:24%;left:53%;">1</div>
-            <div class="hotspot" data-layer="2" style="top:40%;left:53%;">2</div>
-            <div class="hotspot" data-layer="3" style="top:49%;left:53%;">3</div>
-            <div class="hotspot" data-layer="4" style="top:62%;left:53%;">4</div>
-            <div class="hotspot" data-layer="5" style="top:56%; left:21%;">
+            <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/layer.png" class="responsive-img" />
+            <div class="hotspot" data-layer="1" style="top:27%;left:20%;">1</div>
+            <div class="hotspot" data-layer="2" style="top:41%;left:57%;">2</div>
+            <div class="hotspot" data-layer="3" style="top:50%;left:57%;">3</div>
+            <div class="hotspot" data-layer="4" style="top:56%;left:20%;">4</div>
+                        <div class="hotspot" data-layer="5" style="top:63%; left:57%;">
                 <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/leaf-black-1.png" alt="Leaf Icon"
                     style="width: 20px; height: auto; vertical-align: middle;" />
             </div>
-
+            <div class ="signature">Model Shown: DreamVibe Signature Plush - Full </div>
         </div>
     </div>
 </div>
@@ -453,7 +419,7 @@
                         </div>
                         <div class="card-section">
                             <h6>Cool-to-the-Touch Polyethylene (PE) Cover</h6>
-                            <p style="margin-bottom: 10px;">Naturally cooling, breathable, and moisture-wicking4PE
+                            <p>Naturally cooling, breathable, and moisture-wicking4PE
                                 fabric creates an instantly refreshing sleep surface. Staying cool helps you fall asleep
                                 faster,
                                 stay asleep longer, and wake up more refreshed by preventing overheating and
@@ -473,8 +439,7 @@
                                 shoulders, hips,
                                 and lower back. Promotes better circulation,
                                 reduces tossing and turning, and allows for full-body relaxation-essential for deep,
-                                restorative sleep.
-                            </p>
+                                restorative sleep.</p>
                         </div>
                     </div>
                 </div>
@@ -500,7 +465,7 @@
                             <span class="card-title">8" Active Support base layer for ultimate stabillity</span>
                         </div>
                         <div class="card-section">
-                            <h6> Active Support Base Layer</h6>
+                            <h6>Active Support Base Layer</h6>
                             <p> A premium, stabilizing base delivers durable, even support that maintains mattress
                                 shape, extends longevity, promotes proper spinal alignment, and
                                 reduces motion transfer4enhancing the performance of every comfort layer above it.</p>

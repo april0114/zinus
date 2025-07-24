@@ -47,17 +47,20 @@
         font-size: 16px;
     }
 
-    .accordion-title .number {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        line-height: 24px;
-        border-radius: 50%;
-        text-align: center;
-        background-color: transparent;
-        transition: 0.3s;
-        font-weight: bold;
-    }
+.accordion-title .number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: 0.3s;
+    font-weight: bold;
+    flex-shrink: 0; 
+    margin-top: 4px; 
+}
+    
 
     .accordion-item[open] .accordion-title .number {
         background-color: #c5a47e;
@@ -392,7 +395,7 @@
                     <div class="custom-card">
                         <div class="card-header">
                             <span class="card-title">Quilted, breathable & cool-touch cover. Heat removing Phase
-                                Change Materials<br>
+                                Change Materials
                                 Cooling Power 5X</span>
                         </div>
                         <div class="card-section">
@@ -411,8 +414,7 @@
                         <div class="card-header">
                             <span class="card-title">1"
                                 Phase Change Material High Density Memory Foam for active cooling that lasts
-                                into the
-                                night</span>
+                                into the night</span>
                         </div>
                         <div class="card-section">
                             <h6>Phase Change Material (PCM) Memory Foam</h6>

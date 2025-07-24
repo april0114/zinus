@@ -6,28 +6,37 @@ document.addEventListener("DOMContentLoaded", function () {
   const allAccordions = document.querySelectorAll(".accordion-item");
   const allHotspots = document.querySelectorAll(".hotspot");
 
-  // ✅ swiper1 초기화
-  const swiperEl = document.querySelector("#price-table-3-0223 .mobile-accordion");
-  if (swiperEl) {
-    swiper1 = new Swiper(swiperEl, {
-      slidesPerView: 1.1,
-      spaceBetween: 16,
-      centeredSlides: true,
-      pagination: {
-        el: "#price-table-3-0223 .swiper-pagination-3",
-        clickable: true,
-        renderBullet: (index, className) => `<span class="${className}"></span>`,
+// ✅ swiper1 초기화
+const swiperEl = document.querySelector("#price-table-3-0223 .mobile-accordion");
+if (swiperEl) {
+  swiper1 = new Swiper(swiperEl, {
+    slidesPerView: 1.1,
+    spaceBetween: 16,
+    centeredSlides: true,
+    pagination: {
+      el: "#price-table-3-0223 .swiper-pagination-3",
+      clickable: true,
+      renderBullet: (index, className) => `<span class="${className}"></span>`,
+    },
+    on: {
+      slideChange: () => {
+        const active = swiper1.slides[swiper1.activeIndex];
+        const layer = active?.getAttribute("data-layer") ||
+                      active?.querySelector("[data-layer]")?.getAttribute("data-layer");
+        if (layer) activateHotspot(layer);
       },
-      on: {
-        slideChange: () => {
-          const active = swiper1.slides[swiper1.activeIndex];
-          const layer = active?.getAttribute("data-layer") ||
-                        active?.querySelector("[data-layer]")?.getAttribute("data-layer");
-          if (layer) activateHotspot(layer);
-        },
-      },
-    });
+    },
+  });
+
+  // ✅ 모바일 진입 시 1번 슬라이드 강조 (약간의 지연 후)
+  if (window.innerWidth <= 768) {
+    setTimeout(() => {
+      swiper1.slideTo(0);
+      activateHotspot("1");
+    }, 200); // 0.2초 지연
   }
+}
+
 
   // ✅ 아코디언 toggle → 핫스팟 강조
   allAccordions.forEach((item) => {

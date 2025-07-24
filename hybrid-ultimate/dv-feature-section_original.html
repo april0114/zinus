@@ -1,0 +1,181 @@
+<div class="dv-feature-section">
+  <style>
+    .dv-feature-section {
+      font-family: sans-serif;
+    }
+
+    .dv-feature-section .dv-feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      background: #2A3239;
+      color: #fff;
+    }
+
+    .dv-feature-section .dv-feature-item {
+      width: 160px;
+      text-align: center;
+    }
+
+    .dv-feature-section .dv-feature-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background-color: #f2f0ec;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dv-feature-section .dv-feature-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .dv-feature-section .dv-feature-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      min-height: 2.8em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .dv-feature-section .dv-feature-details {
+      font-size: 0.85rem;
+      color: #fff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .dv-feature-section .dv-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.7);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dv-feature-section .dv-modal-content {
+      background: #fff;
+      color: #000;
+      max-width: 90%;
+      width: 400px;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    .dv-feature-section .dv-modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      color: #000;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .dv-feature-section .dv-feature-item {
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dv-feature-section .dv-feature-item {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <div class="dv-feature-grid">
+    <div class="dv-feature-item">
+      <div class="dv-feature-icon">
+        <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/KakaoTalk_Photo_2025-07-22-23-23-13-001.png" alt="Icon 1" />
+      </div>
+      <div class="dv-feature-title">25% Higher-Density Foam</div>
+      <div class="dv-feature-details" onclick="dvOpenModal(0)">DETAILS</div>
+    </div>
+
+    <div class="dv-feature-item">
+      <div class="dv-feature-icon">
+        <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/KakaoTalk_Photo_2025-07-22-23-23-14-002.png" alt="Icon 2" />
+      </div>
+      <div class="dv-feature-title">Advanced Cooling Technology</div>
+      <div class="dv-feature-details" onclick="dvOpenModal(1)">DETAILS</div>
+    </div>
+
+    <div class="dv-feature-item">
+      <div class="dv-feature-icon">
+        <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/KakaoTalk_Photo_2025-07-22-23-23-16-003.png" alt="Icon 3" />
+      </div>
+      <div class="dv-feature-title">Zoned Support</div>
+      <div class="dv-feature-details" onclick="dvOpenModal(2)">DETAILS</div>
+    </div>
+
+    <div class="dv-feature-item">
+      <div class="dv-feature-icon">
+        <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/KakaoTalk_Photo_2025-07-22-23-23-17-004.png" alt="Icon 4" />
+      </div>
+      <div class="dv-feature-title">100% Fiberglass-Free</div>
+      <div class="dv-feature-details" onclick="dvOpenModal(3)">DETAILS</div>
+    </div>
+
+    <div class="dv-feature-item">
+      <div class="dv-feature-icon">
+        <img src="https://dreamvibesleep.com/wp-content/uploads/2025/07/KakaoTalk_Photo_2025-07-22-23-23-18-005.png" alt="Icon 5" />
+      </div>
+      <div class="dv-feature-title">Made in the U.S.A.</div>
+      <div class="dv-feature-details" onclick="dvOpenModal(4)">DETAILS</div>
+    </div>
+  </div>
+
+  <div class="dv-modal" id="dvFeatureModal">
+    <div class="dv-modal-content">
+      <div class="dv-modal-close" onclick="dvCloseModal()">×</div>
+      <div id="dvModalText">Placeholder detail text.</div>
+    </div>
+  </div>
+
+  <script>
+    const dvModal = document.getElementById('dvFeatureModal');
+    const dvModalText = document.getElementById('dvModalText');
+
+    const dvFeatureDetails = [
+      "Our 25% higher-density foam provides long-lasting support and pressure relief for deeper sleep.",
+      "Advanced cooling layers wick away heat and keep you cool all night long.",
+      "Zoned support system adapts to your body for better spinal alignment and reduced tossing.",
+      "Made with 100% fiberglass-free materials for healthier indoor air quality and safety.",
+      "Proudly manufactured in the U.S.A. to ensure top-tier craftsmanship and materials."
+    ];
+
+    function dvOpenModal(index) {
+      dvModalText.textContent = dvFeatureDetails[index];
+      dvModal.style.display = 'flex';
+    }
+
+    function dvCloseModal() {
+      dvModal.style.display = 'none';
+    }
+
+    dvModal.addEventListener('click', function (e) {
+      if (e.target === dvModal) {
+        dvCloseModal();
+      }
+    });
+  </script>
+</div>
